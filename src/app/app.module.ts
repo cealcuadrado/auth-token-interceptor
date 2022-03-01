@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ErrorHandlingInterceptor } from './interceptors/error-handling.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,6 +21,10 @@ import { LayoutComponent } from './layout/layout.component';
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorHandlingInterceptor,
+    multi: true
+  }, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
     multi: true
   }],
   bootstrap: [AppComponent]
