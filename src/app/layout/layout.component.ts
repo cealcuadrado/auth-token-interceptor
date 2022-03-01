@@ -1,3 +1,5 @@
+import { LocalStorageService } from './../services/local-storage.service';
+import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private localStorage: LocalStorageService
+  ) { }
 
   ngOnInit(): void {
+    this.authService.requestAuthToken().subscribe(obj => {
+      this.localStorage.set('token', obj.request_token);
+    });
   }
-
 }
